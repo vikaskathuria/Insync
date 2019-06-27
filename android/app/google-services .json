@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "741984439598",
+    "firebase_url": "https://insyncproject-b0e4d.firebaseio.com",
+    "project_id": "insyncproject-b0e4d",
+    "storage_bucket": "insyncproject-b0e4d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741984439598:android:a933a1fe73bc4380",
+        "android_client_info": {
+          "package_name": "com.insync"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "741984439598-4o9ipmrj7egbjoe3i9omgkj6m83cjen0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.insync",
+            "certificate_hash": "95e0efb53175226c8a8f531d537ed760c3ad4a74"
+          }
+        },
+        {
+          "client_id": "741984439598-a6vtl3079pbe4ps52stg2invr7u0j9ci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSyyjvWI_R-MK5RF3MmCdGi6Yu92VEBLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "741984439598-a6vtl3079pbe4ps52stg2invr7u0j9ci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
