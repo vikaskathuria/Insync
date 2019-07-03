@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
-import { List, ListItem, SearchBar } from "react-native-elements";
-// import Icon from "react-native-vector-icons/Ionicons";
+import { View, Text, ActivityIndicator } from "react-native";
+import { GiftedChat } from 'react-native-gifted-chat'
 import { Button, Icon } from "native-base";
 
 class Calls extends Component {
@@ -9,12 +8,7 @@ class Calls extends Component {
     super(props);
 
     this.state = {
-      loading: false,
-      data: [],
-      page: 1,
-      seed: 1,
-      error: null,
-      refreshing: false
+      messages: [],
     };
   }
 
@@ -25,123 +19,50 @@ class Calls extends Component {
     return {
       headerRight: (
         <Button transparent onPress={() => params._onHeaderEventControl()}>
-          <Icon name="menu" style={{ fontSize: 30, color: "white" }} />
+          <Icon name="search" style={{ fontSize: 30, color: "white" }} />
         </Button>
       )
     };
   };
 
-  componentDidMount() {
-    this.makeRemoteRequest();
+  componentWillMount() {
+    this.setState({
+      messages: [
+        {
+          _id: 1,
+          text: 'Hello developer',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+      ],
+    })
   }
 
-  makeRemoteRequest = () => {
-    const { page, seed } = this.state;
-    const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
-    this.setState({ loading: true });
+  onSend(messages = []) {
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, messages),
+    }))
+  }
 
-    fetch(url)
-      .then(res => res.json())
-      .then(res => {
-        this.setState(
-          {
-            data:
-              page === 1 ? res.results : [...this.state.data, ...res.results],
-            error: res.error || null,
-            loading: false,
-            refreshing: false
-          },
-          () => {
-            console.log(this.state.data);
-          }
-        );
-      })
-      .catch(error => {
-        this.setState({ error, loading: false });
-      });
-  };
+  
 
-  handleRefresh = () => {
-    this.setState(
-      {
-        page: 1,
-        seed: this.state.seed + 1,
-        refreshing: true
-      },
-      () => {
-        this.makeRemoteRequest();
-      }
-    );
-  };
 
-  handleLoadMore = () => {
-    this.setState(
-      {
-        page: this.state.page + 1
-      },
-      () => {
-        this.makeRemoteRequest();
-      }
-    );
-  };
+ 
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: "86%",
-          backgroundColor: "#CED0CE",
-          marginLeft: "14%"
-        }}
-      />
-    );
-  };
 
-  renderHeader = () => {
-    return <SearchBar placeholder="Type Here..." lightTheme round />;
-  };
-
-  renderFooter = () => {
-    if (!this.state.loading) return null;
-
-    return (
-      <View
-        style={{
-          paddingVertical: 20,
-          borderTopWidth: 1,
-          borderColor: "#CED0CE"
-        }}
-      >
-        <ActivityIndicator animating size="large" />
-      </View>
-    );
-  };
   render() {
     return (
-      <View>
-        <FlatList
-          data={this.state.data}
-          renderItem={({ item }) => (
-            <ListItem
-              roundAvatar
-              title={`${item.name.first} ${item.name.last}`}
-              subtitle={item.email}
-              leftAvatar={{ source: { uri: item.picture.thumbnail } }}
-              containerStyle={{ borderBottomWidth: 0 }}
-              chevron
-            />
-          )}
-          keyExtractor={item => item.email}
-          ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
-          ListFooterComponent={this.renderFooter}
-          onRefresh={this.handleRefresh}
-          refreshing={this.state.refreshing}
-          onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={50}
-        />
-      </View>
+      <GiftedChat
+      messages={this.state.messages}
+      onSend={messages => this.onSend(messages)}
+      user={{
+        _id: 1,
+      }}
+    />
     );
   }
 }

@@ -7,12 +7,15 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Alert
+  Alert,
+  ActivityIndicator,
+  AsyncStorage
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Logo from "./Logo";
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import axios from "axios";
 
 
 export class Login extends Component {
@@ -20,12 +23,61 @@ export class Login extends Component {
     super(props)
   
     this.state = {
-       username:'',
-       password:''
+      email:'',
+       password:'',
+       loading:false
     }
   }
+  // storeData = async () => {
+  //   const {email,password}=this.state;
+  //   let arr={
+  //     email:email,
+  //     password:password
+  //   }
+  //   try {
+  //     await AsyncStorage.setItem('arr',JSON.stringify(arr));
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // };
+  
+  // retrieveData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('arr');
+  //     if (value !== null) {
+  //       // We have data!!
+  //       console.log(value);
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // };
+  // deleteData = async () => {
+  //   try {
+  //      AsyncStorage.removeItem('arr',()=>{
+  //        console.log("deleted")
+  //      });
+  //       console.log(value);
+      
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // };
+
+
+
+
+
   
   async componentDidMount() {
+    console.log(this.props.navigation)
+    // Preload data from an external API
+    // Preload data using AsyncStorage
+    let userData=await AsyncStorage.getItem('userData');
+    if(userData)
+    {
+    this.props.navigation.navigate('dashboard')
+    }
     this._configureGoogleSignIn();
     await this._getCurrentUser();
   }
@@ -65,20 +117,47 @@ export class Login extends Component {
     }
   };
 
-  checkLogin=()=>{
-    const { username, password}= this.state
-    if(username=="" && password==""){
-      this.props.navigation.navigate('dashboard')   
-     }
-    else{
-      Alert.alert('Error','Username/Password mismatch',[{
-        text:'Okay'
-      }])
+  // checkLogin=()=>{
+  //   const { username, password}= this.state
+  //   if(username=="" && password==""){
+  //     this.props.navigation.navigate('dashboard')   
+  //    }
+  //   else{
+  //     Alert.alert('Error','Username/Password mismatch',[{
+  //       text:'Okay'
+  //     }])
 
+  //   }
+  // }
+
+  handleLogin=async()=>{
+    const {email,password}=this.state
+    try {
+
+      this.setState({loading:true,email:'',password:''})
+     let result=await axios.post('http://192.168.0.30:3000/user/login', {
+        email: email,
+        password: password
+      })
+     AsyncStorage.setItem('userData',JSON.stringify(result.data));
+      this.props.navigation.navigate("dashboard");
+
+      console.log("result=>>>",result)
+      this.setState({loading:false})
+    } catch (error) {
+      this.setState({loading:false})
+      console.log("error---->", error);
+ 
     }
+    
   }
   render() {
-    
+    const {email,password,loading}=this.state;
+    if(loading){
+      return <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+       <ActivityIndicator size="large"/>
+      </View>
+    }
     return (
       <KeyboardAwareScrollView style={{flex:1}}>
 
@@ -89,7 +168,8 @@ export class Login extends Component {
           underlineColorAndroid="rgb(128,128,128)"
           placeholder="Email"
           placeholderTextColor="#808080"
-          // onChangeText={text=>this.setState({username:text})}
+          value={email}
+          onChangeText={text=>this.setState({email:text})}
         />
 
         <TextInput
@@ -98,7 +178,8 @@ export class Login extends Component {
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#808080"
-          // onChangeText={text=>this.setState({password:text})}
+          value={password}
+          onChangeText={text=>this.setState({password:text})}
         />
         <LinearGradient
           start={{ x: 0.2, y: 0.2 }}
@@ -106,7 +187,7 @@ export class Login extends Component {
           colors={["#0715F7", "#518EF8"]}
           style={styles.linearGradient}
         >
-          <TouchableOpacity  onPress={this.checkLogin}>
+          <TouchableOpacity  onPress={this.handleLogin}>
           <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
         </LinearGradient>
@@ -149,7 +230,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#F5FCFF",
+    backgroundColor: "#fff",
     marginTop:30 ,
 
   },
@@ -159,7 +240,6 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 16,
     fontSize: 16,
-    color: "#ffffff",
     marginVertical: 7,
     marginTop:20 ,
   },

@@ -5,7 +5,7 @@ import LinearGradient from "react-native-linear-gradient";
 class Feedback extends Component {
     render() {
         return (
-            <View>
+            <View style={{flex:1}}>
                 <Text style={{fontFamily:'Roboto',fontSize:15,marginVertical:20,marginLeft:20,color:'#000',fontWeight:'bold'}}>Tell  us how do you like our app</Text>
             <View style={{flexDirection:"row", marginLeft:20}}>
             <Image
@@ -33,7 +33,7 @@ class Feedback extends Component {
             <View  style={{borderLeftWidth: 1,
             borderRightWidth: 1
             ,borderBottomWidth:1,
-            borderTopWidth:1,height: 106,width:350,marginLeft:20,borderRadius:10,marginVertical:20}} >
+            borderTopWidth:1,height: 106,width:350,marginLeft:20,borderRadius:10,marginVertical:20,alignItems:'center'}} >
             <TextInput
         //   style={styles.inputBox}
         //   underlineColorAndroid="rgb(128,128,128)"
@@ -63,7 +63,9 @@ const styles=StyleSheet.create({
         width: 350,
         height: 50,
         borderRadius: 5,
-        marginVertical: 90
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 100
       },
       buttonText: {
         fontSize: 18,

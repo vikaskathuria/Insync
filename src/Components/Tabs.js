@@ -1,12 +1,13 @@
  import {createStackNavigator,createDrawerNavigator,createBottomTabNavigator} from 'react-navigation'
  import React from 'react'
-import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 import Projects from './Projects'
 import Teams from './Teams'
 import Chat from './Chat'
-// import Icon from "react-native-vector-icons/Ionicons";
+import Icons from "react-native-vector-icons/MaterialIcons";
+import IconD from "react-native-vector-icons/AntDesign";
+import IconA from "react-native-vector-icons/Octicons";
+
 import CustomHeader from "./CustomHeader";
-// import { Button } from "react-native";
 import {Button,Icon} from 'native-base'
 import DrawerScreen from "./DrawerScreen";
 
@@ -91,20 +92,32 @@ const ChatStack=createStackNavigator({
 const TabBar=createBottomTabNavigator({
     Projects:{
         screen: ProjectStack,
+        navigationOptions : {
+          tabBarIcon: ({ tintColor}) => (
+              <IconA name="project" size={28} color={tintColor} />
+            ),
+          }
+
     
                 },
 
     Teams:{
         screen: TeamStack,
-        // navigationOptions = {
-        //    tabBarIcon: ({ tintColor, focused }) => (
-        //        <Icon name={focused ? "md-call" : "ios-call"} size={28} color={tintColor} />
-        //      ),
-        //    }
+          navigationOptions : {
+            tabBarIcon: ({ tintColor}) => (
+                <IconD name="team" size={28} color={tintColor} />
+              ),
+            }
         
     },
   Chat:{
-      screen: ChatStack
+      screen: ChatStack,
+              navigationOptions : {
+           tabBarIcon: ({ tintColor}) => (
+               <Icons name="chat" size={28} color={tintColor} />
+             ),
+           }
+
   },
 
 },
@@ -138,10 +151,10 @@ const TabBar=createBottomTabNavigator({
   tabBarOptions: {
     showIcon: true,
     style: {
-      backgroundColor: "#0715F7"
+      backgroundColor: "transparent"
     },
-    inactiveTintColor: 'white',
-    activeTintColor: '#000000'
+    inactiveTintColor: '#000',
+    activeTintColor: 'grey'
   }
 }
 )

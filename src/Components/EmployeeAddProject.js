@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { addProject } from "../Actions/addProjectAction";
 import { connect } from "react-redux";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 import {
   View,
@@ -44,6 +46,8 @@ class EmployeeAddProject extends Component {
   }
   render() {
     return (
+      <KeyboardAwareScrollView style={{flex:1}}>
+
       <View>
         <TextInput
           style={styles.inputBoxes}
@@ -92,6 +96,7 @@ class EmployeeAddProject extends Component {
           </TouchableOpacity>
         </LinearGradient>
       </View>
+      </KeyboardAwareScrollView>
     );
   }
 }

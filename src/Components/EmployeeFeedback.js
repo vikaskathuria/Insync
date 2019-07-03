@@ -33,7 +33,7 @@ class EmployeeFeedback extends Component {
             <View  style={{borderLeftWidth: 1,
             borderRightWidth: 1
             ,borderBottomWidth:1,
-            borderTopWidth:1,height: 106,width:350,marginLeft:20,borderRadius:10,marginVertical:20}} >
+            borderTopWidth:1,height: 106,width:350,marginLeft:20,borderRadius:10,marginVertical:20,alignItems:'center'}} >
             <TextInput
         //   style={styles.inputBox}
         //   underlineColorAndroid="rgb(128,128,128)"
@@ -63,7 +63,10 @@ const styles=StyleSheet.create({
         width: 350,
         height: 50,
         borderRadius: 5,
-        marginVertical: 90
+        marginVertical: 90,
+        justifyContent: 'center',
+        alignItems: 'center',
+
       },
       buttonText: {
         fontSize: 18,

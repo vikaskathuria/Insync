@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image,FlatList } from "react-native";
 import CalendarStrip from "react-native-slideable-calendar-strip";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { connect } from "react-redux";
-import { ListItem } from "react-native-elements";
+// import { ListItem } from "react-native-elements";
 import { Button, Icon } from "native-base";
+import {EmployeeListItems} from "./EmployeeListItems";
 
 class SwitchEmployee extends Component {
   state = {
@@ -22,6 +23,12 @@ class SwitchEmployee extends Component {
       </Button>
     )
   });
+  renderRow=({item})=>{
+    return <EmployeeListItems onPress={()=>this.props.navigation.navigate('insideProject')} text1={item.projectName} text2={item.clientName} text3={item.description} />
+}
+renderSeprator=()=>{
+  return <View style={{height:1,borderBottomWidth:1,borderColor:'#d4d4d4',marginLeft:20}}/>
+}
 
   render() {
     const { projectList } = this.props;
@@ -65,14 +72,13 @@ class SwitchEmployee extends Component {
           <View style={styles.header} />
           <View style={styles.bottom} />
 
-          <KeyboardAwareScrollView style={{ flex: 1 }}>
+          {/* <KeyboardAwareScrollView style={{ flex: 1 }}>
             <View>
               {projectList.map(project => (
                 <View style={{}}>
                   <TouchableOpacity>
                     <Image
                       source={require("../Images/pause.png")}
-                      //   style={styles.FloatingButtonStyle}
                     />
                   </TouchableOpacity>
 
@@ -85,19 +91,26 @@ class SwitchEmployee extends Component {
                     }}
                     subtitle={
                       <View style={styles.subtitleView}>
-                        {/* <Text style={styles.ratingText}>{project.clientName}</Text> */}
                         <Text style={styles.ratingText}>
                           {project.description}
                         </Text>
                       </View>
                     }
-                    //     chevronColor="white"
-                    // chevron
                   />
                 </View>
               ))}
             </View>
-          </KeyboardAwareScrollView>
+          </KeyboardAwareScrollView> */}
+          <KeyboardAwareScrollView style={{ flex: 1 }}>
+          <View style={{ marginVertical: 30 }}>
+            <FlatList
+              data={projectList||[]}
+              renderItem={this.renderRow}
+              ItemSeparatorComponent={this.renderSeprator}
+            />
+          </View>
+        </KeyboardAwareScrollView>
+
         </View>
       </View>
     );

@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View,Image} from 'react-native';
 import {AppContainer} from './src/Components/Nav'
 import { Provider } from 'react-redux'
 import {store} from './src/Store/addProjectStore'
@@ -24,8 +24,7 @@ export default class App extends Component{
   };
 
   async componentDidMount() {
-    // Preload data from an external API
-    // Preload data using AsyncStorage
+
     const data = await this.performTimeConsumingTask();
     // GoogleSignin.configure();
     if (data !== null) {
@@ -45,6 +44,9 @@ export default class App extends Component{
   <Text style={{alignItems: "center",justifyContent: "center",fontSize: 50, fontWeight: "bold"}}>
     Insync
   </Text>
+  {/* <View   style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+  <Image source={require('../Images/Group.png')}></Image></View> */}
+
 </LinearGradient>
       );
     }

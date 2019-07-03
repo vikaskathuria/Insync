@@ -48,7 +48,7 @@ class AddTeam extends Component {
             colors={["#0715F7","#518EF8" ]}
             style={styles.linearGradient}
           >
-          <TouchableOpacity>
+          <TouchableOpacity style={{alignItems:'center'}}>
             <Text style={styles.buttonText}>Send Invite</Text>
           </TouchableOpacity>
           </LinearGradient>
@@ -66,6 +66,7 @@ linearGradient: {
     marginLeft: 40,
     borderRadius: 5,
     marginVertical:20,
+    alignItems:'center'
   },
   buttonText: {
     fontSize: 18,

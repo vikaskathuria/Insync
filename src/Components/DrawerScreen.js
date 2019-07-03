@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text,StyleSheet,TouchableOpacity } from 'react-native';
+import { View, Text,StyleSheet,TouchableOpacity,AsyncStorage } from 'react-native';
 import LinearGradient from "react-native-linear-gradient";
 
 
@@ -9,6 +9,17 @@ class DrawerScreen extends Component {
     this.state = {
     };
   }
+  deleteData = async () => {
+    try {
+      await AsyncStorage.clear()
+      this.props.navigation.navigate('login')
+       
+      
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
 
   render() {
     return (
@@ -38,7 +49,7 @@ class DrawerScreen extends Component {
       <TouchableOpacity onPress={()=>this.props.navigation.navigate('feedback')}>
       <Text style={{borderBottomWidth:1,fontFamily:'Roboto',fontSize:17,color: '#000000',borderBottomColor:'#C4C4C4',marginVertical:15,marginLeft:10}}>Give us Feedback</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={()=>this.props.navigation.navigate('login')}>
+      <TouchableOpacity onPress={this.deleteData}>
       <Text style={{borderBottomWidth:1,fontFamily:'Roboto',fontSize:17,color: '#000000',borderBottomColor:'#C4C4C4',marginVertical:15,marginLeft:10}}>Log Out</Text>
       </TouchableOpacity>
 
