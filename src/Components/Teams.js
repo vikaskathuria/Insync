@@ -26,7 +26,6 @@ export class Teams extends Component {
       headerRight: (
         <Button
           transparent
-          onPress={() => params._onHeaderEventControl()}
         >
           <Icon 
             name="search"

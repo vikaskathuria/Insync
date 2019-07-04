@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import LinearGradient from 'react-native-linear-gradient';
-import {addProject} from '../Actions/addProjectAction'
-import { connect} from 'react-redux'
+// import {addProject} from '../Actions/addProjectAction'
+// import { connect} from 'react-redux'
 
 import {
     View,
@@ -13,6 +13,7 @@ import {
     Image,
     Dimensions
   } from "react-native";
+import Axios from 'axios';
   
 
 class EditProject extends Component {
@@ -24,16 +25,18 @@ class EditProject extends Component {
        clientName:'',
     }
   }
-  newProjectList(){
-    console.log(this.state.projectName)
-    this.props.addProject({ projectName:this.state.projectName,clientName:this.state.clientName});
-    this.setState({
-      projectName:'',
-      clientName:''
-    },()=>{
-      this.props.navigation.goBack()
-    })
-  }
+handleEdit=async()=>{
+  const {projectName,clientName}=this.state
+try {
+  let result=await Axios.post('',{
+    project_name:projectName,
+    client_name:clientName
+  })
+  console.log("result==>",result)
+} catch (error) {
+  console.log('error=>',error)
+}
+}
     render() {
         return (
             <View>
@@ -66,20 +69,21 @@ class EditProject extends Component {
             colors={["#0715F7","#518EF8" ]}
             style={styles.linearGradient}
           >
-          <TouchableOpacity>
-            <Text style={styles.buttonText} onPress={()=> this.newProjectList()}>Done</Text>
+          <TouchableOpacity onPress={this.handleEdit}>
+            <Text style={styles.buttonText} >Done</Text>
           </TouchableOpacity>
           </LinearGradient>
             </View>
           )
     }
 }
-const mapDispatchToProps = (dispatch) =>(
-  {
-    addProject:(project) => dispatch(addProject(project))
-  }
-)
-export default connect(null,mapDispatchToProps)(EditProject)
+// const mapDispatchToProps = (dispatch) =>(
+//   {
+//     addProject:(project) => dispatch(addProject(project))
+//   }
+// )
+export default EditProject
+
 const styles = StyleSheet.create({
 
 linearGradient: {

@@ -153,8 +153,8 @@ const TabBar=createBottomTabNavigator({
     style: {
       backgroundColor: "transparent"
     },
-    inactiveTintColor: '#000',
-    activeTintColor: 'grey'
+    inactiveTintColor: 'grey',
+    activeTintColor: 'blue'
   }
 }
 )

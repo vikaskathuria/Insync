@@ -81,7 +81,7 @@ class SignUp extends Component {
       confirmPassword
     } = this.state;
     console.log("asdfasdfasdf");
-    this.setState({ loading: true,firstName:'', lastName:'', email:'',password:'', confirmPassword:'' });
+    this.setState({ loading: true,});
     try {
       let result = await axios.post("http://192.168.0.30:3000/user/register", {
         first_name: firstName,
@@ -92,7 +92,7 @@ class SignUp extends Component {
       });
       AsyncStorage.setItem('userData',JSON.stringify(result.data))
       this.props.navigation.navigate("dashboard");
-      this.setState({ loading: false });
+      this.setState({ loading: false,firstName:'', lastName:'', email:'',password:'', confirmPassword:''  });
       console.log("result==>", result);
     } catch (error) {
       this.setState({ loading: false });

@@ -21,6 +21,8 @@ import EmployeeAddProject from "./EmployeeAddProject";
 import EmployeeSetting from "./EmployeeSetting";
 import EmployeeNotification from "./EmployeeNotification";
 import EmployeeFeedback from "./EmployeeFeedback";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
 
 const AppNavigator = createStackNavigator(
   {
@@ -40,7 +42,7 @@ const AppNavigator = createStackNavigator(
       screen: InsideProject,
       navigationOptions: ({ navigation }) => ({
         // header: props => <CustomHeader {...props} />,
-        title: "Project",
+        title:navigation.state.params.title,
         headerRight: (
           <TouchableOpacity onPress={() => navigation.navigate("editProject")}>
             <Text
@@ -348,6 +350,24 @@ const AppNavigator = createStackNavigator(
         }
       })
     },
+    forgotPassword: {
+      screen: ForgotPassword,
+      navigationOptions: {
+        title: "Reset Password",
+        path: 'user/:forgotpassword',
+
+      }
+    },
+    resetPassword: {
+      screen: ResetPassword,
+      navigationOptions: {
+        title: "Forgot Password",
+
+      }
+    },
+
+
+
 
     dashboard: {
       screen: Drawer,
@@ -360,4 +380,5 @@ const AppNavigator = createStackNavigator(
     initialRouteName: "login"
   }
 );
+
 export const AppContainer = createAppContainer(AppNavigator);

@@ -134,7 +134,7 @@ export class Login extends Component {
     const {email,password}=this.state
     try {
 
-      this.setState({loading:true,email:'',password:''})
+      this.setState({loading:true,})
      let result=await axios.post('http://192.168.0.30:3000/user/login', {
         email: email,
         password: password
@@ -143,7 +143,7 @@ export class Login extends Component {
       this.props.navigation.navigate("dashboard");
 
       console.log("result=>>>",result)
-      this.setState({loading:false})
+      this.setState({loading:false,email:'',password:''})
     } catch (error) {
       this.setState({loading:false})
       console.log("error---->", error);
@@ -191,6 +191,9 @@ export class Login extends Component {
           <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
         </LinearGradient>
+        <TouchableOpacity onPress={()=>this.props.navigation.navigate('resetPassword')}>
+        <Text style={{color: "#0715f7",fontSize: 18,alignItems:'center'}}>Forgot Password ?</Text>
+        </TouchableOpacity>
         <Text
           style={{
             color: "black",

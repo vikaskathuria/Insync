@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import LinearGradient from "react-native-linear-gradient";
 import { addProject } from "../Actions/addProjectAction";
 import { connect } from "react-redux";
+import axios from "axios";
 
 import {
   View,
@@ -16,28 +17,55 @@ import {
 
 class AddProject extends Component {
   constructor(props) {
-    super(props);
+    super(props); 
 
     this.state = {
       projectName: "",
       clientName: ""
     };
   }
-  newProjectList() {
-    console.log(this.state.projectName);
-    this.props.addProject({
-      projectName: this.state.projectName,
-      clientName: this.state.clientName
-    });
-    this.setState(
-      {
-        projectName: "",
-        clientName: ""
-      },
-      () => {
-        this.props.navigation.goBack();
-      }
-    );
+  componentDidMount(){
+      // try {
+      //   let result=axios.post('http://192.168.0.30:3000/project/create',{
+      //     projectName:projectName,
+      //     clientName:clientName,
+          
+      //   })
+      //   console.log("result==",result)
+        
+      // } catch (error) {
+      //   console.log("error==>",error)
+      // }
+  }
+  newProjectList=async()=> {
+    // console.log(this.state.projectName);
+    // this.props.addProject({
+    //   projectName: this.state.projectName,
+    //   clientName: this.state.clientName
+    // });
+    // this.setState(
+    //   {
+    //     projectName: "",
+    //     clientName: ""
+    //   },
+    //   () => {
+    //     this.props.navigation.goBack();
+    //   }
+    // );
+const {projectName,clientName}=this.state
+    try {
+      let result=await axios.post('http://192.168.0.30:3000/project/create',{
+        project_name:projectName,
+        client_name:clientName,
+        
+      })
+      console.log("result==",result)
+      this.props.navigation.goBack();
+    } catch (error) {
+      console.log("error==>",error)
+    }
+
+
   }
   render() {
     return (
@@ -73,7 +101,7 @@ class AddProject extends Component {
           <TouchableOpacity>
             <Text
               style={styles.buttonText}
-              onPress={() => this.newProjectList()}
+              onPress={this.newProjectList}
             >
               Done
             </Text>

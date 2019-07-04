@@ -51,8 +51,9 @@ export default class App extends Component{
       );
     }
      else {
+      const prefix = 'insync://';
       return ( 
-        <Provider store={store}><AppContainer /></Provider>
+        <Provider store={store}><AppContainer uriPrefix={prefix} /></Provider>
     // <ViewInventoryMain/>
   );
   }

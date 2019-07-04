@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import Icons from "react-native-vector-icons/Ionicons";
 // import LinearGradient from "react-native-linear-gradient";
 import { Button, Icon } from "native-base";
-// import AddProject from "../Components/AddProject"
+import {addProject} from "../Actions/addProjectAction";
 import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -20,6 +20,7 @@ import {
   Alert
 } from "react-native";
 import {ListItem} from "./ListItem";
+import axios from 'axios'
 
 class Projects extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Projects extends Component {
       projectList: []
     };
   }
+  _listner='';
 
   static navigationOptions = ({ navigation }) => {
     navOptions = navigation;
@@ -42,11 +44,41 @@ class Projects extends Component {
     };
   };
   renderRow=({item})=>{
-      return <ListItem onPress={()=>this.props.navigation.navigate('insideProject')} text1={item.projectName} text2={item.clientName} text3={item.description} />
+    console.log("item->",item)
+      return <ListItem onPress={()=>this.props.navigation.navigate({routeName:'insideProject',params:{title:item.project_name}})} text1={item.project_name} text2={item.client_name} text3={item.description} text4={item.Date} />
   }
   renderSeprator=()=>{
     return <View style={{height:1,borderBottomWidth:1,borderColor:'#d4d4d4',marginLeft:20}}/>
   }
+  componentDidMount=async()=>{
+    _listner=this.props.navigation.addListener(
+      'willFocus',
+      payload => this.onBack(payload)
+    )
+this.getProjects();
+  }
+  getProjects=async ()=>
+  {
+
+    try {
+      let result=await axios.get('http://192.168.0.30:3000/project/create')
+      this.props.addProject(result.data);
+    } catch (error) {
+      console.log("error==>",error)
+    }
+  }
+  onBack(payload)
+  {
+    console.log(payload)
+    if(payload.action.type=="Navigation/BACK")
+    {
+this.getProjects()
+    }
+  }
+componentWillUnmount() {
+  this._listner.remove();
+}
+  
   render() {
     const { projectList } = this.props;
     return (
@@ -78,10 +110,13 @@ class Projects extends Component {
 const mapStateToProps = state => ({
   projectList: state.projectList
 });
+const mapDispatchToProps = dispatch =>({
+  addProject:(project)=>dispatch(addProject(project))
+})
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(Projects);
 
 const styles = StyleSheet.create({
