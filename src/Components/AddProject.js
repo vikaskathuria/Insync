@@ -24,19 +24,6 @@ class AddProject extends Component {
       clientName: ""
     };
   }
-  componentDidMount(){
-      // try {
-      //   let result=axios.post('http://192.168.0.30:3000/project/create',{
-      //     projectName:projectName,
-      //     clientName:clientName,
-          
-      //   })
-      //   console.log("result==",result)
-        
-      // } catch (error) {
-      //   console.log("error==>",error)
-      // }
-  }
   newProjectList=async()=> {
     // console.log(this.state.projectName);
     // this.props.addProject({

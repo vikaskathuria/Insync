@@ -16,7 +16,9 @@ import Logo from "./Logo";
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import axios from "axios";
-
+// import Toast from "react-native-simple-toast";
+// import { projectStrings } from "./ProjectStrings";
+// import { validateEmail, validatePassword } from "./Validation";
 
 export class Login extends Component {
   constructor(props) {
@@ -28,42 +30,19 @@ export class Login extends Component {
        loading:false
     }
   }
-  // storeData = async () => {
-  //   const {email,password}=this.state;
-  //   let arr={
-  //     email:email,
-  //     password:password
-  //   }
-  //   try {
-  //     await AsyncStorage.setItem('arr',JSON.stringify(arr));
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // };
-  
-  // retrieveData = async () => {
-  //   try {
-  //     const value = await AsyncStorage.getItem('arr');
-  //     if (value !== null) {
-  //       // We have data!!
-  //       console.log(value);
+  // validateData = () => {
+  //   if (this.state.email == "" || this.state.password == "") {
+  //     Toast.show(projectStrings.toastFillAllDetails);
+  //   } else if (validateEmail(this.state.email)) {
+  //     Toast.show(projectStrings.toastInvalidEmail);
+  //   } else if (validatePassword(this.state.password)) {
+  //     {
+  //       Toast.show(projectStrings.toastShortPassword);
   //     }
-  //   } catch (error) {
-  //     console.log(error)
+  //   } else {
+  //     this.props.doLogin(this.state, "farmer/login");
   //   }
   // };
-  // deleteData = async () => {
-  //   try {
-  //      AsyncStorage.removeItem('arr',()=>{
-  //        console.log("deleted")
-  //      });
-  //       console.log(value);
-      
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // };
-
 
 
 
@@ -179,6 +158,7 @@ export class Login extends Component {
           secureTextEntry={true}
           placeholderTextColor="#808080"
           value={password}
+          blurOnSubmit={true}
           onChangeText={text=>this.setState({password:text})}
         />
         <LinearGradient

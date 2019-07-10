@@ -44,7 +44,7 @@ const AppNavigator = createStackNavigator(
         // header: props => <CustomHeader {...props} />,
         title:navigation.state.params.title,
         headerRight: (
-          <TouchableOpacity onPress={() => navigation.navigate("editProject")}>
+          <TouchableOpacity onPress={() => navigation.navigate({routeName:"editProject",params:{item:navigation.state.params.item}})}>
             <Text
               style={{
                 fontSize: 17,

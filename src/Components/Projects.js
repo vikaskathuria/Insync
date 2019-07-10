@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import Icons from "react-native-vector-icons/Ionicons";
 // import LinearGradient from "react-native-linear-gradient";
 import { Button, Icon } from "native-base";
-import {addProject} from "../Actions/addProjectAction";
+import {addProject,deleteProject} from "../Actions/addProjectAction";
 import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
@@ -26,8 +26,28 @@ class Projects extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      projectList: []
+      projectList: [],
+      loading:false
     };
+  }
+  deleteNote=async(id)=>{
+
+    try {
+      this.setState({loading:true,})
+      let ress=await axios.get(`http://192.168.0.30:3000/project/delete/${id}`) 
+
+      console.log('ress=>',ress)
+      if(ress.status==200)
+      {
+        this.props.deleteProject(id)
+      }
+      this.setState({loading:false})
+
+    } catch (error) {
+      this.setState({loading:false})
+      console.log('error=>',error)
+
+    }
   }
   _listner='';
 
@@ -44,8 +64,7 @@ class Projects extends Component {
     };
   };
   renderRow=({item})=>{
-    console.log("item->",item)
-      return <ListItem onPress={()=>this.props.navigation.navigate({routeName:'insideProject',params:{title:item.project_name}})} text1={item.project_name} text2={item.client_name} text3={item.description} text4={item.Date} />
+      return <ListItem onDelete={()=>this.deleteNote(item._id)} onPress={()=>this.props.navigation.navigate({routeName:'insideProject',params:{title:item.project_name,item:item}})} text1={item.project_name} text2={item.client_name} text3={item.description} text4={item.Date} />
   }
   renderSeprator=()=>{
     return <View style={{height:1,borderBottomWidth:1,borderColor:'#d4d4d4',marginLeft:20}}/>
@@ -70,7 +89,7 @@ this.getProjects();
   onBack(payload)
   {
     console.log(payload)
-    if(payload.action.type=="Navigation/BACK")
+    if(payload.action.type=="Navigation/BACK" || payload.action.type=="Navigation/NAVIGATE")
     {
 this.getProjects()
     }
@@ -81,6 +100,11 @@ componentWillUnmount() {
   
   render() {
     const { projectList } = this.props;
+    if(this.state.loading){
+      return <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+       <ActivityIndicator size="large"/>
+       </View>
+    }
     return (
       <View style={styles.MainContainer}>
         <StatusBar backgroundColor="#0715F7" />
@@ -111,7 +135,8 @@ const mapStateToProps = state => ({
   projectList: state.projectList
 });
 const mapDispatchToProps = dispatch =>({
-  addProject:(project)=>dispatch(addProject(project))
+  addProject:(project)=>dispatch(addProject(project)),
+  deleteProject:(id)=>dispatch(deleteProject(id))
 })
 
 export default connect(
