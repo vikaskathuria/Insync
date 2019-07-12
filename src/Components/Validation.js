@@ -40,7 +40,7 @@ export function validateName(name)
 //password Validation
 export function validatePassword(password)
 {
-  if(password.length<8 || password=='')
+  if(password.length<4 || password=='')
   {
     return true;
   }

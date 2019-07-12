@@ -64,7 +64,8 @@ class Projects extends Component {
     };
   };
   renderRow=({item})=>{
-      return <ListItem onDelete={()=>this.deleteNote(item._id)} onPress={()=>this.props.navigation.navigate({routeName:'insideProject',params:{title:item.project_name,item:item}})} text1={item.project_name} text2={item.client_name} text3={item.description} text4={item.Date} />
+    console.log()
+      return <ListItem onDelete={()=>this.deleteNote(item._id)} onPress={()=>this.props.navigation.navigate({routeName:'insideProject',params:{title:item.project_name,item:item}})} text1={item.project_name} text2={item.client_name} text3={item.description} text4={item.date} />
   }
   renderSeprator=()=>{
     return <View style={{height:1,borderBottomWidth:1,borderColor:'#d4d4d4',marginLeft:20}}/>
@@ -94,9 +95,6 @@ this.getProjects();
 this.getProjects()
     }
   }
-componentWillUnmount() {
-  this._listner.remove();
-}
   
   render() {
     const { projectList } = this.props;

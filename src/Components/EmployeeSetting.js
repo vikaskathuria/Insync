@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import { View, Text,StyleSheet,TouchableOpacity } from 'react-native';
 
 export class EmployeeSetting extends Component {
+    code()
+    {
+
+    }
     render() {
         return (
             <View style={{flex:1}}>
@@ -18,7 +22,6 @@ export class EmployeeSetting extends Component {
       <TouchableOpacity onPress={()=>this.props.navigation.navigate('login')}>
       <Text style={{borderBottomWidth:1,fontFamily:'Roboto',fontSize:17,color: '#000000',borderBottomColor:'#C4C4C4',marginVertical:15,marginLeft:10}}>Log Out</Text>
       </TouchableOpacity>
-
       </View>
             </View>
         )

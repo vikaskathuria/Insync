@@ -9,7 +9,8 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
-  AsyncStorage
+  AsyncStorage,
+  TouchableHighlight
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import Logo from "./Logo";
@@ -19,7 +20,8 @@ import axios from "axios";
 // import Toast from "react-native-simple-toast";
 // import { projectStrings } from "./ProjectStrings";
 // import { validateEmail, validatePassword } from "./Validation";
-
+import TouchID from 'react-native-touch-id'
+import { validatePassword, validateEmail } from "./Validation";
 export class Login extends Component {
   constructor(props) {
     super(props)
@@ -27,7 +29,8 @@ export class Login extends Component {
     this.state = {
       email:'',
        password:'',
-       loading:false
+       loading:false,
+       biometryType: 'FingerPrint'
     }
   }
   // validateData = () => {
@@ -52,6 +55,10 @@ export class Login extends Component {
     console.log(this.props.navigation)
     // Preload data from an external API
     // Preload data using AsyncStorage
+    // TouchID.isSupported()
+    // .then(biometryType => {
+    //   this.setState({ biometryType });
+    // })
     let userData=await AsyncStorage.getItem('userData');
     if(userData)
     {
@@ -111,6 +118,18 @@ export class Login extends Component {
 
   handleLogin=async()=>{
     const {email,password}=this.state
+    if (validateEmail(email)) {
+      Alert.alert('Invalid Email')
+      // Toast.show(projectStrings.toastFillAllDetails);
+    }
+    else if(validatePassword(password))
+    {
+      Alert.alert('Invalid Password')
+      // return <View style={{flex:1,justifyContent:"center",alignItems:'center'}}><Text style={{color:'red'}}>Invalid Password</Text></View>
+
+    }
+     else {
+  
     try {
 
       this.setState({loading:true,})
@@ -128,9 +147,33 @@ export class Login extends Component {
       console.log("error---->", error);
  
     }
+  }
     
   }
-  render() {
+  _pressHandler=()=> {
+    const optionalConfigObject = { title: 'Authentication Required', color: '#e00606' };
+    TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+      .then(success => {
+        Alert.alert('Authenticated Successfully');
+        this.props.navigation.navigate("dashboard")
+      })
+      .catch(error => {
+        Alert.alert('Authentication Failed');
+      });
+  }
+  // _testSupport() {
+  //   TouchID.isSupported()
+  //     .then(supported => {
+  //       // Success code
+  //       Alert.alert('Touch ID supported');
+  //     })
+  //     .catch(error => {
+  //       // Failure code
+  //       Alert.alert('Touch ID not support');
+  //     });
+  //}
+    render() {
+    
     const {email,password,loading}=this.state;
     if(loading){
       return <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
@@ -193,6 +236,28 @@ export class Login extends Component {
           />
           <Text style={styles.googleText}>Sign In With Google</Text>
         </TouchableOpacity>
+
+       
+
+        <TouchableHighlight
+          onPress={this._pressHandler}
+          // activeOpacity={1}
+        >
+         <LinearGradient
+          start={{ x: 0.2, y: 0.2 }}
+          end={{ x: 1.0, y: 1.0 }}
+          colors={["#0715F7", "#518EF8"]}
+          style={styles.btn}
+        >
+          <Text style={{
+            color: '#fff',
+            fontWeight: '600'
+          }}>
+            {`Authenticate with ${this.state.biometryType}`}
+          </Text>
+          </LinearGradient>
+
+        </TouchableHighlight>
 
         <View style={styles.Account}>
         <Text style={{color:'#000000',fontSize: 18}}>Don't have an account yet?</Text>
@@ -269,5 +334,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     
 },
+btn: {
+  borderRadius: 3,
+  marginTop: 30,
+  paddingTop: 15,
+  paddingBottom: 15,
+  paddingLeft: 15,
+  paddingRight: 15,
+}
 
 });
