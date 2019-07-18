@@ -3,14 +3,12 @@
 import Projects from './Projects'
 import Teams from './Teams'
 import Chat from './Chat'
-import Icons from "react-native-vector-icons/MaterialIcons";
-import IconD from "react-native-vector-icons/AntDesign";
-import IconA from "react-native-vector-icons/Octicons";
+import CustomHeaderss from "./CustomHeaderss";
 
 import CustomHeader from "./CustomHeader";
 import {Button,Icon} from 'native-base'
 import DrawerScreen from "./DrawerScreen";
-
+import {Image} from 'react-native'
 
 const ProjectStack=createStackNavigator({
   Project:{
@@ -18,7 +16,7 @@ const ProjectStack=createStackNavigator({
     navigationOptions: () => ({
       title: 'Projects',
       headerTintColor: 'white',
-      header: props => <CustomHeader {...props} />,
+      header:props => <CustomHeaderss title="Project" {...props}/>,
       headerStyle: {
         backgroundColor: "transparent"
       },   
@@ -36,7 +34,7 @@ const TeamStack=createStackNavigator({
   Teams:{
     screen:Teams,
     navigationOptions: () => ({
-      header: props => <CustomHeader {...props} />,
+      header:props => <CustomHeaderss title="Teams" {...props}/>,
 
       title: 'Teams',
       headerTintColor: 'white',
@@ -64,7 +62,7 @@ const ChatStack=createStackNavigator({
   Chat:{
     screen:Chat,
     navigationOptions: () => ({
-      header: props => <CustomHeader {...props} />,
+      header:props => <CustomHeaderss title="Chat" {...props}/>,
 
       title: 'Chats',
       headerTintColor: 'white',
@@ -94,7 +92,12 @@ const TabBar=createBottomTabNavigator({
         screen: ProjectStack,
         navigationOptions : {
           tabBarIcon: ({ tintColor}) => (
-              <IconA name="project" size={28} color={tintColor} />
+              // <IconA name="briefcase" size={28} color={tintColor} />
+              <Image
+              source={require('../Images/case.png') }
+              tintColor={tintColor}
+            
+            />
             ),
           }
 
@@ -105,7 +108,12 @@ const TabBar=createBottomTabNavigator({
         screen: TeamStack,
           navigationOptions : {
             tabBarIcon: ({ tintColor}) => (
-                <IconD name="team" size={28} color={tintColor} />
+                // <IconD name="team" size={28} color={tintColor} />
+                <Image
+                source={require('../Images/team.png') }
+                tintColor={tintColor}
+              
+              />
               ),
             }
         
@@ -114,7 +122,12 @@ const TabBar=createBottomTabNavigator({
       screen: ChatStack,
               navigationOptions : {
            tabBarIcon: ({ tintColor}) => (
-               <Icons name="chat" size={28} color={tintColor} />
+              //  <Icons name="chat" size={28} color={tintColor} />
+              <Image
+          source={require('../Images/chat.png') }
+          tintColor={tintColor}
+        
+        />
              ),
            }
 
@@ -135,16 +148,16 @@ const TabBar=createBottomTabNavigator({
     elevation: 0,
     showdowOpacity: 0
   },
-  headerRight: (
-<Button
-          transparent
-          onPress={() => navigation.openDrawer()}
-        >
-          <Icon 
-            name="menu"
-            style={{ fontSize: 30, color: 'white' }}
-          /> 
-        </Button>  ),
+//   headerRight: (
+// <Button
+//           transparent
+//           onPress={() => navigation.openDrawer()}
+//         >
+//           <Icon 
+//             name="menu"
+//             style={{ fontSize: 30, color: 'white' }}
+//           /> 
+//         </Button>  ),
 
 
 }),
@@ -169,5 +182,5 @@ export const Drawer = createDrawerNavigator({
 },{
   contentComponent: props => <DrawerScreen {...props} />,
 
-  drawerPosition: 'right',
+  drawerPosition: 'left',
 })

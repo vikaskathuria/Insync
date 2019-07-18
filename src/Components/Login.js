@@ -17,7 +17,7 @@ import Logo from "./Logo";
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import axios from "axios";
-// import Toast from "react-native-simple-toast";
+import Toast from "react-native-simple-toast";
 // import { projectStrings } from "./ProjectStrings";
 // import { validateEmail, validatePassword } from "./Validation";
 import TouchID from 'react-native-touch-id'
@@ -119,13 +119,13 @@ export class Login extends Component {
   handleLogin=async()=>{
     const {email,password}=this.state
     if (validateEmail(email)) {
-      Alert.alert('Invalid Email')
-      // Toast.show(projectStrings.toastFillAllDetails);
+      // Alert.alert('Invalid Email')
+      Toast.show("Invalid Email");
     }
     else if(validatePassword(password))
     {
       Alert.alert('Invalid Password')
-      // return <View style={{flex:1,justifyContent:"center",alignItems:'center'}}><Text style={{color:'red'}}>Invalid Password</Text></View>
+      // return <View style={{flex:1}}><Text style={{color:'red'}}>Invalid Password</Text></View>
 
     }
      else {
@@ -193,7 +193,7 @@ export class Login extends Component {
           value={email}
           onChangeText={text=>this.setState({email:text})}
         />
-
+          {validateEmail(this.state.email) && <Text style={{color:'red',marginBottom:20}}>Invalid Email</Text>}
         <TextInput
           style={styles.inputBox}
           underlineColorAndroid="rgb(128,128,128)"

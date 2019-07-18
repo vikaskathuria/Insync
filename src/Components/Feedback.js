@@ -33,7 +33,7 @@ class Feedback extends Component {
             <View  style={{borderLeftWidth: 1,
             borderRightWidth: 1
             ,borderBottomWidth:1,
-            borderTopWidth:1,height: 106,width:350,marginLeft:20,borderRadius:10,marginVertical:20,alignItems:'center'}} >
+            borderTopWidth:1,height: 106,width:350,marginLeft:20,borderRadius:10,marginVertical:20,alignItems:'center',}} >
             <TextInput
         //   style={styles.inputBox}
         //   underlineColorAndroid="rgb(128,128,128)"

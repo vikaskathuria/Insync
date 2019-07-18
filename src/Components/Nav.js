@@ -41,7 +41,7 @@ const AppNavigator = createStackNavigator(
     insideProject: {
       screen: InsideProject,
       navigationOptions: ({ navigation }) => ({
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
         title:navigation.state.params.title,
         headerRight: (
           <TouchableOpacity onPress={() => navigation.navigate({routeName:"editProject",params:{item:navigation.state.params.item}})}>
@@ -71,7 +71,7 @@ const AppNavigator = createStackNavigator(
     addMembers: {
       screen: AddMembers,
       navigationOptions: ({ navigation }) => ({
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
         title: "Add Members",
         headerLeft: (
           <TouchableOpacity
@@ -165,14 +165,14 @@ const AppNavigator = createStackNavigator(
     addProject: {
       screen: AddProject,
       navigationOptions: {
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
 
         title: "Add Project",
         headerTintColor: "white",
 
         headerStyle: {
-          // backgroundColor: "transparent",
-          backgroundColor: "blue",
+          backgroundColor: "transparent",
+          // backgroundColor: "blue",
 
           elevation: 0,
           showdowOpacity: 0
@@ -187,13 +187,13 @@ const AppNavigator = createStackNavigator(
     addTeam: {
       screen: AddTeam,
       navigationOptions: {
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
 
         title: "Invite",
         headerTintColor: "white",
         headerStyle: {
-          // backgroundColor: "transparent",
-          backgroundColor: "blue",
+          backgroundColor: "transparent",
+          // backgroundColor: "blue",
 
           elevation: 0,
           showdowOpacity: 0
@@ -209,11 +209,12 @@ const AppNavigator = createStackNavigator(
     notifications: {
       screen: Notification,
       navigationOptions: ({ navigation }) => ({
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
         title: "Notifications",
 
         headerStyle: {
-          backgroundColor: "#0715F7",
+          // backgroundColor: "#0715F7",
+          backgroundColor:'transparent',
           elevation: 0,
           showdowOpacity: 0
         },
@@ -228,11 +229,13 @@ const AppNavigator = createStackNavigator(
     switchEmployee: {
       screen: SwitchEmployee,
       navigationOptions: ({ navigation }) => ({
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
         title: "Projects",
 
         headerStyle: {
-          backgroundColor: "#0715F7",
+          // backgroundColor: "#0715F7",
+          backgroundColor:'transparent',
+
           elevation: 0,
           showdowOpacity: 0
         },
@@ -247,11 +250,13 @@ const AppNavigator = createStackNavigator(
     feedback: {
       screen: Feedback,
       navigationOptions: ({ navigation }) => ({
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
         title: "Feedback",
 
         headerStyle: {
-          backgroundColor: "#0715F7",
+          // backgroundColor: "#0715F7",
+          backgroundColor:'transparent',
+
           elevation: 0,
           showdowOpacity: 0
         },
@@ -259,21 +264,21 @@ const AppNavigator = createStackNavigator(
         headerTitleStyle: {
           color: "#ffffff",
           textAlign: "center",
-          flex: 1
+          // flex: 1
         }
       })
     },
     employeeAddProject: {
       screen: EmployeeAddProject,
       navigationOptions: {
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
 
         title: "Add Project",
         headerTintColor: "white",
 
         headerStyle: {
-          // backgroundColor: "transparent",
-          backgroundColor: "blue",
+          backgroundColor: "transparent",
+          // backgroundColor: "blue",
 
           elevation: 0,
           showdowOpacity: 0
@@ -287,7 +292,7 @@ const AppNavigator = createStackNavigator(
     employeeSetting: {
       screen: EmployeeSetting,
       navigationOptions: ({ navigation }) => ({
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
 
         headerTintColor: "white",
         headerLeft: (
@@ -301,8 +306,8 @@ const AppNavigator = createStackNavigator(
         // ),
 
         headerStyle: {
-          // backgroundColor: "transparent",
-          backgroundColor: "blue",
+          backgroundColor: "transparent",
+          // backgroundColor: "blue",
 
           elevation: 0,
           showdowOpacity: 0
@@ -315,30 +320,35 @@ const AppNavigator = createStackNavigator(
     employeeFeedback: {
       screen: EmployeeFeedback,
       navigationOptions: ({ navigation }) => ({
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
         title: "Feedback",
 
         headerStyle: {
-          backgroundColor: "#0715F7",
+          // backgroundColor: "#0715F7",
+          backgroundColor:'transparent',
+
           elevation: 0,
           showdowOpacity: 0
         },
         headerTintColor: "#ffffff",
+        
         headerTitleStyle: {
           color: "#ffffff",
           textAlign: "center",
-          flex: 1
+          // flex: 1
         }
       })
     },
     employeeNotifications: {
       screen: EmployeeNotification,
       navigationOptions: ({ navigation }) => ({
-        // header: props => <CustomHeader {...props} />,
+        header: props => <CustomHeader {...props} />,
         title: "Notifications",
 
         headerStyle: {
-          backgroundColor: "#0715F7",
+          // backgroundColor: "#0715F7",
+          backgroundColor:'transparent',
+
           elevation: 0,
           showdowOpacity: 0
         },

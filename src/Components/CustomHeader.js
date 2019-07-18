@@ -16,7 +16,10 @@ const CustomHeader = props => {
           end={{ x: 1.0, y: 1.0 }}
   colors={["#0715F7","#518EF8" ]}
       >
-        <Header {...props} leftInterpolator />
+        <Header {...props}  />
+        {/* <View style={{padding:30}}>
+<LeftComponent/>
+        </View> */}
       </LinearGradient>
     </View>
   );
