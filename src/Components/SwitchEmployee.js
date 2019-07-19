@@ -5,12 +5,13 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { connect } from "react-redux";
 // import { ListItem } from "react-native-elements";
 import { Button, Icon } from "native-base";
-import {EmployeeListItems} from "./EmployeeListItems";
+import EmployeeListItems from "./EmployeeListItems";
+import {deleteEmployeeProject} from "../Actions/addProjectAction";
 
 class SwitchEmployee extends Component {
   state = {
     selectedDate: new Date(),
-    projectList: []
+    employeeProjectList: [],
   };
 
   static navigationOptions = ({navigation})=>({
@@ -23,15 +24,19 @@ class SwitchEmployee extends Component {
       </Button>
     )
   });
+  deleteNote=(id)=>{
+    console.log('res=>',id)
+   this.props.deleteEmployeeProject(id)
+  }
   renderRow=({item})=>{
-    return <EmployeeListItems onPress={()=>this.props.navigation.navigate('insideProject')} text1={item.projectName} text2={item.clientName} text3={item.description} />
+    return <EmployeeListItems onDelete={()=>this.deleteNote(item.id)} onPress={()=>this.props.navigation.navigate('insideProject')} text1={item.projectName} text2={item.clientName} text3={item.description} />
 }
 renderSeprator=()=>{
   return <View style={{height:1,borderBottomWidth:1,borderColor:'#d4d4d4',marginLeft:20}}/>
 }
 
   render() {
-    const { projectList } = this.props;
+    const { employeeProjectList } = this.props;
 
     return (
       <View style={{ flex: 1 }}>
@@ -104,7 +109,7 @@ renderSeprator=()=>{
           <KeyboardAwareScrollView style={{ flex: 1 }}>
           <View style={{ marginVertical: 30 }}>
             <FlatList
-              data={projectList||[]}
+              data={employeeProjectList||[]}
               renderItem={this.renderRow}
               ItemSeparatorComponent={this.renderSeprator}
             />
@@ -117,13 +122,16 @@ renderSeprator=()=>{
   }
 }
 const mapStateToProps = state => ({
-  projectList: state.projectList
+  employeeProjectList: state.employeeProjectList
 });
+const mapDispatchToProps=(dispatch)=>({
+  deleteEmployeeProject:(id)=>dispatch(deleteEmployeeProject(id))
+})
+
 
 export default connect(
   mapStateToProps,
-  null
-)(SwitchEmployee);
+ mapDispatchToProps)(SwitchEmployee);
 
 const styles = StyleSheet.create({
   header: {
@@ -157,7 +165,7 @@ const styles = StyleSheet.create({
     fontFamily: "SF Pro Text",
     fontSize: 12,
     borderBottomWidth: 1,
-    borderColor: "#D1D1D6",
+    borderColor: "#fff",
     paddingBottom: 10,
     marginVertical: 5
   }

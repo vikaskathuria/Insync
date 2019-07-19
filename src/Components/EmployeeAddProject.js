@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import LinearGradient from "react-native-linear-gradient";
-import { addProject } from "../Actions/addProjectAction";
+import {addEmployeeProject } from "../Actions/addProjectAction";
 import { connect } from "react-redux";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -23,21 +23,27 @@ class EmployeeAddProject extends Component {
     this.state = {
       projectName: "",
       clientName: "",
-      description: ""
+      description: "",
+      id:1
     };
   }
   newProjectList() {
-    console.log(this.state.projectName);
-    this.props.addProject({
+    let id = this.state.id + 1;
+    this.setState({id:id})
+    console.log(this.state);
+    this.props.addEmployeeProject({
       projectName: this.state.projectName,
       clientName: this.state.clientName,
-      description: this.state.description
+      description: this.state.description,
+      id:this.state.id
     });
+    
     this.setState(
       {
         projectName: "",
         clientName: "",
-        description: ""
+        description: "",
+        id:id
       },
       () => {
         this.props.navigation.goBack();
@@ -101,7 +107,7 @@ class EmployeeAddProject extends Component {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  addProject: project => dispatch(addProject(project))
+  addEmployeeProject: project => dispatch(addEmployeeProject(project))
 });
 export default connect(
   null,

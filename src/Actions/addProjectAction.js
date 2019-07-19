@@ -12,8 +12,13 @@ export const editProject=(id)=>({
     id
 })
 
-export const emailAddress=(email)=>({
-    type:"EMAIL_ADDRESS",
-    email
-
+export const addEmployeeProject=(project)=>({
+    type:"ADD_EMPLOYEE_PROJECT",
+    project
+    
+})
+export const deleteEmployeeProject=(id)=>({
+    type:"DELETE_EMPLOYEE_PROJECT",
+    id
+    
 })
