@@ -13,10 +13,10 @@ import {Image} from 'react-native'
 const ProjectStack=createStackNavigator({
   Project:{
     screen:Projects,
-    navigationOptions: () => ({
+    navigationOptions: ({navigation}) => ({
       title: 'Projects',
       headerTintColor: 'white',
-      header:props => <CustomHeaderss title="Project" {...props}/>,
+      header:props => <CustomHeaderss onSearch={t=>navigation.setParams({search:t})} title="Project" {...props}/>,
       headerStyle: {
         backgroundColor: "transparent"
       },   
@@ -142,7 +142,7 @@ const TabBar=createBottomTabNavigator({
 // }
 {
   navigationOptions: ({navigation}) => ({
-    header: props => <CustomHeader {...props} />,
+    header: null,
     headerStyle:{
     backgroundColor: "transparent",
     elevation: 0,

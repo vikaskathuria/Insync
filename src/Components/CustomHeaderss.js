@@ -52,6 +52,7 @@ class CustomHeaderss extends Component {
                         isSearchActive={isSearchActive}
                         onSearchTextChange={this.onSearchTextChanged}
                         searchValue={searchValue}
+                        onSearch={t=>this.props.onSearch(t)}
             />
 
             <RightComponent  isSearchActive={isSearchActive}

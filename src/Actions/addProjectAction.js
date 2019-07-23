@@ -22,3 +22,8 @@ export const deleteEmployeeProject=(id)=>({
     id
     
 })
+export const searchProject=(value)=>({
+    type:"SEARCH_PROJECT",
+    value
+    
+})

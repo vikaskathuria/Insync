@@ -30,6 +30,7 @@ class Projects extends Component {
       loading:false
     };
   }
+
   deleteNote=async(id)=>{
 
     try {
@@ -81,10 +82,10 @@ this.getProjects();
   {
 
     try {
-      let result=await axios.get('http://192.168.0.30:3000/project/create')
+      let result=await axios.get('http://192.168.0.30:3000/project/get')
       this.props.addProject(result.data);
     } catch (error) {
-      console.log("error==>",error)
+      console.log("erro----->",error.response)
     }
   }
   onBack(payload)
@@ -98,6 +99,16 @@ this.getProjects()
   
   render() {
     const { projectList } = this.props;
+    let filterList=[];
+   console.log(this.props.navigation.state.params)
+   if(this.props.navigation.state.params)
+   {
+     let search=this.props.navigation.state.params.search.toLowerCase();
+      filterList=search.length>0?projectList.filter(v=>v.project_name.toLowerCase().includes(search)):projectList;
+   }
+   else{
+  filterList=projectList;
+   }
     if(this.state.loading){
       return <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
        <ActivityIndicator size="large"/>
@@ -119,7 +130,7 @@ this.getProjects()
         <KeyboardAwareScrollView style={{ flex: 1 }}>
           <View style={{ marginVertical: 30 }}>
             <FlatList
-              data={projectList||[]}
+              data={filterList||[]}
               renderItem={this.renderRow}
               ItemSeparatorComponent={this.renderSeprator}
             />

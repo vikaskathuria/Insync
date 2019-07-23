@@ -32,7 +32,11 @@ export const addProjectReducer=(state=initialState,action)=>{
            employeeProjectList:state.employeeProjectList.filter(v=>v.id!==action.id)
            
        }
-
+      case "SEARCH_PROJECT":
+      return{
+          ...state,
+         projectList:action.value
+      }
 
         default:
         return state
