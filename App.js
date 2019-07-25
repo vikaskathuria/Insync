@@ -4,13 +4,12 @@ import {Platform, StyleSheet, Text, View,Image} from 'react-native';
 import {AppContainer} from './src/Components/Nav'
 import { Provider } from 'react-redux'
 // import persist from './src/Store/addProjectStore'
-import {store} from './src/Store/addProjectStore'
 
 import LinearGradient from 'react-native-linear-gradient';
 // import ViewInventoryMain from './src/Components/ViewInventoryMain'
-// import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './src/Store/addProjectStore';
 
-// const persistStore=persist()
 export default class App extends Component{
   constructor(props) {
     super(props);
@@ -56,11 +55,10 @@ export default class App extends Component{
      else {
       const prefix = 'insync://';
       return ( 
-        // <Provider store={persistStore.store}>
         <Provider store={store}>
-         {/* <PersistGate loading={null} persistor={persistStore.persistor}> */}
+         <PersistGate loading={null} persistor={persistor}>
         <AppContainer uriPrefix={prefix} />
-        {/* </PersistGate> */}
+   </PersistGate>
         </Provider>
     // <ViewInventoryMain/>
   );

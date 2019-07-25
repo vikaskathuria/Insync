@@ -1,19 +1,20 @@
-// import {AsyncStorage} from 'react-native' 
-import { createStore, applyMiddleware } from "redux";
+import {AsyncStorage} from 'react-native' 
+import { createStore, applyMiddleware, combineReducers } from "redux";
 import { addProjectReducer } from '../Reducers/addProjectReducer';
 import logger from 'redux-logger';
-// import storage from 'redux-persist/lib/storage'
-// import { persistStore, autoRehydrate } from 'redux-persist'
-// import { persistStore, persistReducer } from 'redux-persist'
-// const persistConfig = {
-//     key: 'root',
-//     storage
-//   }
-//   const persistedReducer = persistReducer(persistConfig,addProjectReducer)
+import storage from 'redux-persist/lib/storage' 
+import { persistStore, persistReducer } from 'redux-persist'
+const persistConfig = {
+    key: 'root',
+    storage
+  }
+const rootReducer=combineReducers({
+    project:addProjectReducer
+})
+  const persistedReducer = persistReducer(persistConfig,rootReducer)
 
-export const store=createStore(addProjectReducer,applyMiddleware(logger))
-// export default () => {
-//     let store = createStore(persistedReducer,{},applyMiddleware(logger))
-//     let persistor = persistStore(store)
-//     return { store, persistor }
-//   }
+// export const store=createStore(persistedReducer,applyMiddleware(logger))
+
+export let store = createStore(persistedReducer,{},applyMiddleware(logger))
+export let persistor = persistStore(store)
+

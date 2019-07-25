@@ -122,7 +122,7 @@ renderSeprator=()=>{
   }
 }
 const mapStateToProps = state => ({
-  employeeProjectList: state.employeeProjectList
+  employeeProjectList: state.project.employeeProjectList
 });
 const mapDispatchToProps=(dispatch)=>({
   deleteEmployeeProject:(id)=>dispatch(deleteEmployeeProject(id))

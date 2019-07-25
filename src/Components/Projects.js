@@ -104,7 +104,7 @@ this.getProjects()
    if(this.props.navigation.state.params)
    {
      let search=this.props.navigation.state.params.search.toLowerCase();
-      filterList=search.length>0?projectList.filter(v=>v.project_name.toLowerCase().includes(search)):projectList;
+      filterList=search.length>0?projectList.filter(v=>v.project_name.toLowerCase().match(search)):projectList;
    }
    else{
   filterList=projectList;
