@@ -141,7 +141,7 @@ this.getProjects()
   }
 }
 const mapStateToProps = state => ({
-  projectList: state.projectList
+  projectList: state.project.projectList
 });
 const mapDispatchToProps = dispatch =>({
   addProject:(project)=>dispatch(addProject(project)),
